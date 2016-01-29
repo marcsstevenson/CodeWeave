@@ -1,3 +1,3 @@
 (function () {
-    var app = angular.module("CodeWeaveApp", []);
+    var app = angular.module("CodeWeaveApp", ['ngStorage']);
 }());

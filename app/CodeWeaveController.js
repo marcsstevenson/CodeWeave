@@ -1,21 +1,49 @@
 (function () {
-    angular.module('CodeWeaveApp').controller('CodeWeaveController', ['$scope'
-    , function ($scope) {
-
+    angular.module('CodeWeaveApp').controller('CodeWeaveController', ['$scope', '$localStorage'
+    , function ($scope, $localStorage) {
+            var self = this;
+            
             $scope.Take = "some value goes here\n";
             $scope.WeaveSubstitution = "value";
             $scope.WeaveValues = "1\n2\n3";
             $scope.Result = "";
-
-            $scope.$watch('Take', function (newValue, oldValue) {
-                $scope.Weave();
-            });
+            self.Initialised = false;
+            self.DebounceValue = 700; //ms
             
-            $scope.$watch('WeaveValues', function (newValue, oldValue) {                
+            self.SaveToStorage = function(){
+                $localStorage.Take = $scope.Take;
+                $localStorage.WeaveSubstitution = $scope.WeaveSubstitution;
+                $localStorage.WeaveValues = $scope.WeaveValues;
+            }
+            
+            self.Initialise = function(){
+                $scope.Take = $localStorage.Take;
+                $scope.WeaveSubstitution = $localStorage.WeaveSubstitution;
+                $scope.WeaveValues = $localStorage.WeaveValues;
+                
+                var delayInMs = 2000;
+
+                $scope.$watch('Take', function (newValue, oldValue) {
+                    $scope.Weave();
+                });
+                
+                $scope.$watch('WeaveSubstitution', function (newValue, oldValue) {
+                    $scope.Weave();
+                });
+                
+                $scope.$watch('WeaveValues', function (newValue, oldValue) {                
+                    $scope.Weave();
+                });
+                
+                self.Initialised = true;
+                
                 $scope.Weave();
-            });
+            }
             
             $scope.Weave = function(){
+                if(!self.Initialised) return;
+                
+                self.SaveToStorage();
                 var values = $scope.WeaveValues.split("\n");
                 var result = "";
                 
@@ -34,6 +62,6 @@
                 return str.replace(new RegExp(find, 'g'), replace);
             }
             
-            $scope.Weave();
+            self.Initialise();
         }]);
 }());
