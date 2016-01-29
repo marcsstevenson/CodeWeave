@@ -8,7 +8,6 @@
             $scope.WeaveValues = "1\n2\n3";
             $scope.Result = "";
             self.Initialised = false;
-            self.DebounceValue = 700; //ms
             
             self.SaveToStorage = function(){
                 $localStorage.Take = $scope.Take;
