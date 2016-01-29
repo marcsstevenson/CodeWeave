@@ -1,0 +1,17 @@
+{
+  "name": "code-weave",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npm run lite",
+    "lite": "lite-server"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.4.9",
+    "bootstrap": "*",
+    "ngstorage": "*"
+  },
+  "devDependencies": {
+    "lite-server": "^1.3.1"
+  }
+}

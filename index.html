@@ -1,0 +1,35 @@
+<html>
+
+  <head>
+    <title>Code Weave</title>
+
+    <script src="/node_modules/angular/angular.js"></script>
+    <script src="/node_modules/ngStorage/ngStorage.js"></script>
+    <script src='/app/CodeWeaveApp.js'></script>
+    <script src='/app/CodeWeaveController.js'></script>
+    <link rel="stylesheet" href='/node_modules/bootstrap/dist/css/bootstrap.css' />
+    <!---->
+  </head>
+
+  <body>
+    <div class="container" ng-app="CodeWeaveApp" ng-controller="CodeWeaveController">
+	   <h1>Code Weave</h1>
+     <div class="row">
+        <div class="col-md-6">
+          <textarea class="form-control" rows="12" ng-model="Take"></textarea>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" type="text" ng-model="WeaveSubstitution" />
+          <textarea class="form-control" rows="10" ng-model="WeaveValues"></textarea>
+        </div>
+     </div>
+     
+     <div class="row">
+        <div class="col-md-12">
+          <textarea class="form-control" rows="10" ng-model="Result"></textarea>
+        </div>
+     </div>
+    </div>
+  </body>
+
+</html>
