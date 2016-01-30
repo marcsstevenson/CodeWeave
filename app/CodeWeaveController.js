@@ -16,9 +16,9 @@
             }
             
             self.Initialise = function(){
-                $scope.Take = $localStorage.Take;
-                $scope.WeaveSubstitution = $localStorage.WeaveSubstitution;
-                $scope.WeaveValues = $localStorage.WeaveValues;
+                $scope.Take = $localStorage.Take ? $localStorage.Take : '';
+                $scope.WeaveSubstitution = $localStorage.WeaveSubstitution ? $localStorage.WeaveSubstitution : '';
+                $scope.WeaveValues = $localStorage.WeaveValues ? $localStorage.WeaveValues : '';
                 
                 var delayInMs = 2000;
 
