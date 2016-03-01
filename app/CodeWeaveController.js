@@ -9,6 +9,12 @@
             $scope.Result = "";
             self.Initialised = false;
             
+            self.ClearStorage = function(){
+                $localStorage.Take = null;
+                $localStorage.WeaveSubstitution = null;
+                $localStorage.WeaveValues = null;
+            }
+            
             self.SaveToStorage = function(){
                 $localStorage.Take = $scope.Take;
                 $localStorage.WeaveSubstitution = $scope.WeaveSubstitution;
@@ -16,12 +22,12 @@
             }
             
             self.Initialise = function(){
-                $scope.Take = $localStorage.Take ? $localStorage.Take : '';
-                $scope.WeaveSubstitution = $localStorage.WeaveSubstitution ? $localStorage.WeaveSubstitution : '';
-                $scope.WeaveValues = $localStorage.WeaveValues ? $localStorage.WeaveValues : '';
+                // self.ClearStorage();
                 
-                var delayInMs = 2000;
-
+                $scope.Take = $localStorage.Take ? $localStorage.Take : 'Ring around the rosey';
+                $scope.WeaveSubstitution = $localStorage.WeaveSubstitution ? $localStorage.WeaveSubstitution : 'rosey';
+                $scope.WeaveValues = $localStorage.WeaveValues ? $localStorage.WeaveValues : 'posey\r\nhosey\r\nTrump';
+                
                 $scope.$watch('Take', function (newValue, oldValue) {
                     $scope.Weave();
                 });
