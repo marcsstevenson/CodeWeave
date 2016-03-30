@@ -42,7 +42,7 @@
                 
                 self.Initialised = true;
                 
-                $scope.Weave();
+                $scope.Weave();                
             }
             
             $scope.Weave = function(){
@@ -51,10 +51,11 @@
                 self.SaveToStorage();
                 var values = $scope.WeaveValues.split("\n");
                 var result = "";
-                
+                                
                 for (var i = 0; i < values.length; i++) {
                     result += $scope.ReplaceAll($scope.Take, $scope.WeaveSubstitution, values[i]) + "\n";
-                    // result += $scope.Take.replace($scope.WeaveSubstitution, values[i]) + "\n";
+                    //Swap {{index} for the counter i
+                    result = $scope.ReplaceAll(result, '{{index}', i);
                 }
                 
                 $scope.Result = result;
