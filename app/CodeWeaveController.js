@@ -55,7 +55,7 @@
                 for (var i = 0; i < values.length; i++) {
                     result += $scope.ReplaceAll($scope.Take, $scope.WeaveSubstitution, values[i]) + "\n";
                     //Swap {{index} for the counter i
-                    result = $scope.ReplaceAll(result, '{{index}', i);
+                    result = $scope.ReplaceAll(result, '{{index}}', i);
                 }
                 
                 $scope.Result = result;
