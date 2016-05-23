@@ -1,6 +1,6 @@
 (function () {
-    angular.module('CodeWeaveApp').controller('CodeWeaveController', ['$scope', '$localStorage'
-    , function ($scope, $localStorage) {
+    angular.module('CodeWeaveApp').controller('CodeWeaveController', ['$scope', '$localStorage', 'CodeWeaveService'
+    , function ($scope, $localStorage, CodeWeaveService) {
             var self = this;
             
             $scope.Take = "some value goes here\n";
@@ -8,6 +8,12 @@
             $scope.WeaveValues = "1\n2\n3";
             $scope.Result = "";
             self.Initialised = false;
+            
+            self.ClearStorage = function(){
+                $localStorage.Take = null;
+                $localStorage.WeaveSubstitution = null;
+                $localStorage.WeaveValues = null;
+            }
             
             self.SaveToStorage = function(){
                 $localStorage.Take = $scope.Take;
@@ -17,13 +23,13 @@
             }
             
             self.Initialise = function(){
-                $scope.Take = $localStorage.Take ? $localStorage.Take : '';
-                $scope.WeaveSubstitution = $localStorage.WeaveSubstitution ? $localStorage.WeaveSubstitution : '';
-                $scope.WeaveValues = $localStorage.WeaveValues ? $localStorage.WeaveValues : '';                
+                // self.ClearStorage();
+                
+                $scope.Take = $localStorage.Take ? $localStorage.Take : 'Ring around the rosey';
+                $scope.WeaveSubstitution = $localStorage.WeaveSubstitution ? $localStorage.WeaveSubstitution : 'rosey';
+                $scope.WeaveValues = $localStorage.WeaveValues ? $localStorage.WeaveValues : 'posey\r\nhosey\r\nTrump';             
                 $scope.FilterIn = $localStorage.FilterIn ? $localStorage.FilterIn : '';
                 
-                var delayInMs = 2000;
-
                 $scope.$watch('Take', function (newValue, oldValue) {
                     $scope.Weave();
                 });
@@ -37,7 +43,7 @@
                 });
                 
                 self.Initialised = true;
-                
+          
                 $scope.Weave();
                 $scope.Filter();
             }
@@ -47,14 +53,15 @@
                 
                 self.SaveToStorage();
                 var values = $scope.WeaveValues.split("\n");
-                var result = "";
+                // var result = "";
+                                
+                // for (var i = 0; i < values.length; i++) {
+                //     result += $scope.ReplaceAll($scope.Take, $scope.WeaveSubstitution, values[i]) + "\n";
+                //     //Swap {{index} for the counter i
+                //     result = $scope.ReplaceAll(result, '{{index}}', i);
+                // }
                 
-                for (var i = 0; i < values.length; i++) {
-                    result += $scope.ReplaceAll($scope.Take, $scope.WeaveSubstitution, values[i]) + "\n";
-                    // result += $scope.Take.replace($scope.WeaveSubstitution, values[i]) + "\n";
-                }
-                
-                $scope.Result = result;
+                $scope.Result = CodeWeaveService.Weave(values, $scope.Take, $scope.WeaveSubstitution);
             };
             
             $scope.ReplaceAll = function (str, find, replace) {
@@ -62,6 +69,20 @@
                     return '';
 
                 return str.replace(new RegExp(find, 'g'), replace);
+            }
+                        
+            $scope.SwapOrder = function () {
+                var values = $scope.WeaveValues.split("\n");
+                
+                var newValues = CodeWeaveService.SwapOrder(values);
+                
+                var newWeaveValues = "";
+                
+                for(var i = 0; i < newValues.length; i++){
+                    newWeaveValues += newValues[i] + "\n";
+                }
+                
+                $scope.WeaveValues = newWeaveValues;
             }
             
             $scope.Filter = function(){

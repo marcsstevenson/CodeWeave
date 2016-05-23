@@ -6,27 +6,39 @@
     <script src="/node_modules/angular/angular.js"></script>
     <script src="/node_modules/ngStorage/ngStorage.js"></script>
     <script src='/app/CodeWeaveApp.js'></script>
+    <script src='/app/CodeWeaveService.js'></script>
     <script src='/app/CodeWeaveController.js'></script>
     <link rel="stylesheet" href='/node_modules/bootstrap/dist/css/bootstrap.css' />
     <!---->
   </head>
 
-  <body>
+  <body>      
     <div class="container" ng-app="CodeWeaveApp" ng-controller="CodeWeaveController">
 	   <h1>Code Weave</h1>
      <div class="row">
+         <!--<a href="http://localhost:57125/">Test</a>-->
+         
         <div class="col-md-6">
-          <textarea class="form-control" rows="12" ng-model="Take" ng-model-options="{ debounce: 700 }"></textarea>
+            <h3>Template Code</h3>
+          <textarea class="form-control" rows="12" ng-model="Take" 
+          placeholder="The seed code"
+          ng-model-options="{ debounce: 700 }"></textarea>
+          <div>Note: {{index}} can be used to insert an index value</div>
         </div>
         <div class="col-md-6">
-          <input class="form-control" type="text" ng-model="WeaveSubstitution" ng-model-options="{ debounce: 700 }" />
-          <textarea class="form-control" rows="10" ng-model="WeaveValues" ng-model-options="{ debounce: 700 }"></textarea>
-          <button class="btn btn-primary" ng-click="Weave()">Weave</button>
+            <h3>Substitution Value</h3>
+            <input class="form-control" type="text" ng-model="WeaveSubstitution" ng-model-options="{ debounce: 700 }" />
+            
+            <h3>Swap Value(s)</h3>
+            <textarea class="form-control" rows="10" ng-model="WeaveValues" ng-model-options="{ debounce: 700 }"></textarea>
+            <button class="btn btn-primary" ng-click="Weave()">Weave</button>
+            <button class="btn btn-primary" ng-click="SwapOrder()">Swap Order</button>
         </div>
      </div>
      
      <div class="row">
         <div class="col-md-12">
+            <h3>Weave Result</h3>
           <textarea class="form-control" rows="10" ng-model="Result"></textarea>
         </div>
      </div>
